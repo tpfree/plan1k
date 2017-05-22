@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.TeamMemberMapper">
+	<resultMap id="rm" type="com.model.TeamMember">
+		<result property="memberId" jdbcType="VARCHAR" column="MEMBER_ID"/>
+		<result property="seniorTitleNum" jdbcType="INTEGER" column="SENIOR_TITLE_NUM"/>		
+		<result property="viceSeniorTitleNum" jdbcType="INTEGER" column="VICE_SENIOR_TITLE_NUM"/>
+		<result property="intermediateTitlNum" jdbcType="INTEGER" column="INTERMEDIATE_TITLE_NUM"/>
+		<result property="belowIntermediateNum" jdbcType="INTEGER" column="BELOW_INTERMEDIATE_TITLE"/>
+		<result property="doctorMum" jdbcType="INTEGER" column="DOCTOR_NUM"/>
+		<result property="masterNum" jdbcType="INTEGER" column="MASTER_NUM"/>
+		<result property="bacheloNum" jdbcType="INTEGER" column="BACHELOR_NUM"/>
+		<result property="titleSubtotal" jdbcType="INTEGER" column="TITLE_SUBTOTAL"/>
+		<result property="juniorCollegeNun" jdbcType="INTEGER" column="JUNIOR_COLLEGE_NUM"/>
+		<result property="eudSubtotal" jdbcType="INTEGER" column="EUD_SUBTOTAL"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+		
+	</resultMap>
+	<sql id="Base_Column_List">
+		MEMBER_ID,
+		SENIOR_TITLE_NUM,
+		VICE_SENIOR_TITLE_NUM,
+		INTERMEDIATE_TITLE_NUM,
+		BELOW_INTERMEDIATE_TITLE,
+		DOCTOR_NUM,
+		MASTER_NUM,
+		BACHELOR_NUM,
+		TITLE_SUBTOTAL,
+		JUNIOR_COLLEGE_NUM,
+		EUD_SUBTOTAL,
+		DECLARE_ID
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_teammember_info 
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_teammember_info WHERE
+		MEMBER_ID=#{memberId}
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_teammember_info (
+			MEMBER_ID,
+			SENIOR_TITLE_NUM,
+			VICE_SENIOR_TITLE_NUM,
+			INTERMEDIATE_TITLE_NUM,
+			BELOW_INTERMEDIATE_TITLE,
+			DOCTOR_NUM,
+			MASTER_NUM,
+			BACHELOR_NUM,
+			TITLE_SUBTOTAL,
+			JUNIOR_COLLEGE_NUM,
+			EUD_SUBTOTAL,
+			DECLARE_ID
+		) VALUES (
+			#{memberId},
+			#{seniorTitleNum},
+			#{viceSeniorTitleNum},
+			#{intermediateTitlNum},
+			#{belowIntermediateNum},
+			#{doctorMum},
+			#{masterNum},
+			#{bacheloNum},
+			#{titleSubtotal},
+			#{juniorCollegeNun},
+			#{eudSubtotal},
+			#{declareId}
+		)
+	</insert>
+
+	<select id="findAllById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_teammember_info
+		WHERE 
+			MEMBER_ID=#{memberId}
+	</select>
+	
+	<!-- 更新 -->
+	
+	<update id="update" parameterType="com.model.TeamMember">
+		UPDATE sys_teammember_info SET
+			SENIOR_TITLE_NUM=#{seniorTitleNum},
+			VICE_SENIOR_TITLE_NUM=#{viceSeniorTitleNum},
+			INTERMEDIATE_TITLE_NUM=#{intermediateTitlNum},
+			BELOW_INTERMEDIATE_TITLE=#{belowIntermediateNum},
+			DOCTOR_NUM=#{doctorMum},
+			MASTER_NUM=#{masterNum},
+			BACHELOR_NUM=#{bacheloNum},
+			TITLE_SUBTOTAL=#{titleSubtotal},
+			JUNIOR_COLLEGE_NUM=#{juniorCollegeNun},
+			EUD_SUBTOTA=#{eudSubtotal}
+		WHERE 
+			MEMBER_ID=#{memberId}
+	</update>
+	
+</mapper>
+

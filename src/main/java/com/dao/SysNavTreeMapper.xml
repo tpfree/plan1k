@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- ID               varchar(40) PK
+TREE_NAME        varchar(255)
+TREE_URL         varchar(255)
+TREE_CODE        varchar(255)
+TREE_INDEX       int(11)
+PARENT_TREE_ID   varchar(40)
+TREE_LEVEL       int(11) -->
+<mapper namespace="com.dao.SysNavTreeMapper">
+	<resultMap id="rm" type="com.model.SysNavTree">
+		<result property="id" jdbcType="VARCHAR" column="ID"/>
+		<result property="treeName" jdbcType="CHAR" column="TREE_NAME"/>
+		<result property="treeUrl" jdbcType="VARCHAR" column="TREE_URL"/>
+		<result property="treeCode" jdbcType="VARCHAR" column="TREE_CODE"/>
+		<result property="treeIndex" jdbcType="INTEGER" column="TREE_INDEX"/>
+		<result property="parentCode" jdbcType="VARCHAR" column="PARENT_CODE"/>
+		<result property="treeLevel" jdbcType="INTEGER" column="TREE_LEVEL"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		TREE_NAME,
+		TREE_URL,
+		TREE_CODE,
+		TREE_INDEX,
+		PARENT_CODE,
+		TREE_LEVEL
+	</sql>
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_nav_tree
+		WHERE 
+			ID = #{id} 
+	</select>
+	
+	
+	<!-- 查询所有的ID -->
+	<select id="findAllIds" resultType="java.lang.String">
+		SELECT ID FROM sys_nav_tree
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_nav_tree WHERE
+		ID = #{id} 
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_nav_tree (
+			ID,
+			TREE_NAME,
+			TREE_URL,
+			TREE_CODE,
+			TREE_INDEX,
+			PARENT_CODE,
+			TREE_LEVEL
+		) VALUES (
+			#{id},
+			#{treeName},
+			#{treeUrl},
+			#{treeCode},
+			#{treeIndex},
+			#{parentCode},
+			#{treeLevel}
+		)
+	</insert>
+	
+	<select id="countAll" resultType="java.lang.Integer">
+		SELECT count(ID) FROM sys_nav_tree	
+	</select>
+	
+	<select id="findAll" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_nav_tree ORDER BY TREE_INDEX ASC
+	</select>
+	
+	<!-- 更新 -->
+	<update id="updateSelective" parameterType="com.model.SysNavTree">
+		UPDATE sys_nav_tree 
+			<set>
+				<if test="treeName!=null">
+				TREE_NAME = #{treeName},
+				</if>
+				<if test="treeUrl!=null">
+				TREE_URL = #{treeUrl},
+				</if>
+				<if test="treeCode!=null">
+				TREE_CODE = #{treeCode},
+				</if>
+				<if test="treeIndex!=null">
+				TREE_INDEX = #{treeIndex},
+				</if>
+				<if test="parentCode!=null">
+				PARENT_CODE = #{parentCode},
+				</if>
+				<if test="treeLevel!=null">
+				TREE_LEVEL = #{treeLevel}
+				</if>
+			</set>
+		WHERE 
+			ID = #{id}
+	</update>
+	
+	<update id="update" parameterType="com.model.SysNavTree">
+		UPDATE sys_nav_tree SET
+			TREE_NAME = #{treeName},
+			TREE_URL = #{treeUrl},
+			TREE_CODE = #{treeCode},
+			TREE_INDEX = #{treeIndex},
+			PARENT_CODE = #{parentCode},
+			TREE_LEVEL = #{treeLevel}
+		WHERE 
+			ID = #{id} 
+	</update>
+</mapper>
+

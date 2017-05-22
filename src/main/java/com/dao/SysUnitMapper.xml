@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.SysUnitMapper">
+	<resultMap id="rm" type="com.model.SysUnit">
+		<result property="id" jdbcType="VARCHAR" column="id"/>
+		<result property="name" jdbcType="VARCHAR" column="name"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,name
+	</sql>
+	
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_unit
+		WHERE 
+			id = #{id} 
+	</select>
+	
+	<!-- 查询所有的ID -->
+	<select id="findAllUnits" parameterType="java.lang.String" resultMap="rm">
+		SELECT <include refid="Base_Column_List" /> FROM sys_unit
+	</select>	
+</mapper>
+

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.BaseInfoMapper">
+	<resultMap id="rm" type="com.model.DeclareBaseInfo">
+		<result property="base_id" jdbcType="VARCHAR" column="base_id" />
+		<result property="declare_id" jdbcType="VARCHAR" column="declare_id" />
+		<result property="name_zh" jdbcType="VARCHAR" column="name_zh" />
+		<result property="name_en" jdbcType="VARCHAR" column="name_en" />
+		<result property="sex" jdbcType="INTEGER" column="sex" />
+		<result property="nation" jdbcType="VARCHAR" column="nation" />
+		<result property="birthday" jdbcType="DATE" column="birthday" />
+		<result property="birth_addr" jdbcType="VARCHAR" column="birth_addr" />
+		<result property="ID_number" jdbcType="VARCHAR" column="ID_number" />
+		<result property="passport_number" jdbcType="VARCHAR" column="passport_number" />
+		<result property="nationality_origin" jdbcType="VARCHAR"
+			column="nationality_origin" />
+		<result property="political_status" jdbcType="VARCHAR" column="political_status" />
+		<result property="graduated_school_zh" jdbcType="VARCHAR"
+			column="graduated_school_zh" />
+		<result property="graduated_school_en" jdbcType="VARCHAR"
+			column="graduated_school_en" />
+		<result property="profession_zh" jdbcType="VARCHAR" column="profession_zh" />
+		<result property="profession_en" jdbcType="VARCHAR" column="profession_en" />
+		<result property="educational_level_zh" jdbcType="VARCHAR"
+			column="educational_level_zh" />
+		<result property="educational_level_en" jdbcType="VARCHAR"
+			column="educational_level_en" />
+		<result property="unit_pre" jdbcType="VARCHAR" column="unit_pre" />
+		<result property="position_pre" jdbcType="VARCHAR" column="position_pre" />
+		<result property="unit_cur" jdbcType="VARCHAR" column="unit_cur" />
+		<result property="position_cur" jdbcType="VARCHAR" column="position_cur" />
+		<result property="zip_code" jdbcType="VARCHAR" column="zip_code" />
+		<result property="profession_do" jdbcType="VARCHAR" column="profession_do" />
+		<result property="profession_title" jdbcType="VARCHAR" column="profession_title" />
+		<result property="academic_parttime_info" jdbcType="VARCHAR"
+			column="academic_parttime_info" />
+		<result property="outcome_trans_info" jdbcType="VARCHAR"
+			column="outcome_trans_info" />
+		<result property="personal_job_profile" jdbcType="VARCHAR"
+			column="personal_job_profile" />
+		<result property="personal_work_plan" jdbcType="VARCHAR"
+			column="personal_work_plan" />
+		<result property="intellectual_rights_owner" jdbcType="INTEGER"
+			column="intellectual_rights_owner" />
+		<result property="declare_situation" jdbcType="INTEGER"
+			column="declare_situation" />
+		<result property="if_sign_agreement_other" jdbcType="VARCHAR"
+			column="if_sign_agreement_other" />
+		<result property="unit_introduction" jdbcType="VARCHAR"
+			column="unit_introduction" />
+		<result property="unit_recommend_reason" jdbcType="VARCHAR"
+			column="unit_recommend_reason" />
+		<result property="unit_working_arrange" jdbcType="VARCHAR"
+			column="unit_working_arrange" />
+		<result property="unit_support_conditions" jdbcType="VARCHAR"
+			column="unit_support_conditions" />
+		<result property="ifvalid" jdbcType="INTEGER" column="ifvalid" />
+		<result property="statue" jdbcType="INTEGER" column="statue" />
+		<result property="personal_photo" jdbcType="VARCHAR" column="personal_photo" />
+		<result property="flag" jdbcType="INTEGER" column="flag" />
+	</resultMap>
+	<sql id="base_column_List">
+		base_id,
+		declare_id,
+		name_zh,
+		name_en,
+		sex,
+		nation,
+		birthday,
+		birth_addr,
+		ID_number,
+		passport_number,
+		nationality_origin,
+		political_status,
+		graduated_school_zh,
+		graduated_school_en,
+		profession_zh,
+		profession_en,
+		educational_level_zh,
+		educational_level_en,
+		unit_pre,
+		position_pre,
+		unit_cur,
+		position_cur,
+		unit_add_cur,
+		zip_code,
+		profession_do,
+		profession_title,
+		academic_parttime_info,
+		outcome_trans_info,
+		personal_job_profile,
+		personal_work_plan,
+		intellectual_rights_owner,
+		declare_situation,
+		if_sign_agreement_other,
+		unit_introduction,
+		unit_recommend_reason,
+		unit_working_arrange,
+		unit_support_conditions,
+		organizer_audit_opinion,
+		organizer_recommend_reasion,
+		organizer_support_conditions,
+		personal_photo
+		ifvalid,
+		statue,
+		flag
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_declare_baseinfo (
+		base_id,
+		declare_id,
+		name_zh,
+		name_en,
+		sex,
+		nation,
+		birthday,
+		birth_addr,
+		ID_number,
+		passport_number,
+		nationality_origin,
+		political_status,
+		graduated_school_zh,
+		graduated_school_en,
+		profession_zh,
+		profession_en,
+		educational_level_zh,
+		educational_level_en,
+		unit_pre,
+		position_pre,
+		unit_cur,
+		position_cur,
+		unit_add_cur,
+		zip_code,
+		profession_do,
+		profession_title,
+		personal_photo,
+		flag
+		) VALUES (
+		#{base_id},
+		#{declare_id},
+		#{name_zh},
+		#{name_en},
+		#{sex},
+		#{nation},
+		#{birthday},
+		#{birth_addr},
+		#{ID_number},
+		#{passport_number},
+		#{nationality_origin},
+		#{political_status},
+		#{graduated_school_zh},
+		#{graduated_school_en},
+		#{profession_zh},
+		#{profession_en},
+		#{educational_level_zh},
+		#{educational_level_en},
+		#{unit_pre},
+		#{position_pre},
+		#{unit_cur},
+		#{position_cur},
+		#{unit_add_cur},
+		#{zip_code},
+		#{profession_do},
+		#{profession_title},
+		#{personal_photo},
+		#{flag}
+		)
+	</insert>
+	<!-- 更新 -->
+	<update id="updateSelective" parameterType="com.model.DeclareBaseInfo">
+		UPDATE sys_declare_baseinfo
+		<set>
+			<if test="academic_parttime_info!=null">
+				academic_parttime_info = #{academic_parttime_info},
+			</if>
+			<if test="outcome_trans_info!=null">
+				outcome_trans_info = #{outcome_trans_info},
+			</if>
+			<if test="personal_job_profile">
+				personal_job_profile = #{personal_job_profile},
+			</if>
+			<if test="personal_work_plan!=null">
+				personal_work_plan = #{personal_work_plan},
+			</if>
+			<if test="intellectual_rights_owner!=null">
+				intellectual_rights_owner = #{intellectual_rights_owner},
+			</if>
+			<if test="declare_situation!=null">
+				declare_situation = #{declare_situation},
+			</if>
+			<if test="if_sign_agreement_other!=null">
+				if_sign_agreement_other = #{if_sign_agreement_other},
+			</if>
+			<if test="unit_introduction!=null">
+				unit_introduction = #{unit_introduction},
+			</if>
+			<if test="unit_recommend_reason!=null">
+				if_sign_agreement_other = #{if_sign_agreement_other},
+			</if>
+			<if test="unit_working_arrange!=null">
+				unit_working_arrange = #{unit_working_arrange},
+			</if>
+			<if test="unit_support_conditions!=null">
+				unit_support_conditions = #{unit_support_conditions},
+			</if>
+			<if test="organizer_audit_opinion!=null">
+				organizer_audit_opinion = #{organizer_audit_opinion},
+			</if>
+			<if test="organizer_recommend_reasion!=null">
+				organizer_recommend_reasion =
+				#{organizer_recommend_reasion},
+			</if>
+			<if test="organizer_support_conditions!=null">
+				organizer_support_conditions =
+				#{organizer_support_conditions},
+			</if>
+			statue = 0
+		</set>
+		WHERE
+		base_id = #{base_id}
+	</update>
+	<!-- 根据申报编号查找基础信息 -->
+	<select id="findBaseInfoById" parameterType="java.lang.String"
+		resultMap="rm">
+		SELECT
+		<include refid="base_column_List" />
+		FROM sys_declare_baseinfo
+		WHERE
+		declare_id=#{declareId}
+
+	</select>
+	<!-- 按Id删除 -->
+	<delete id="deleteBaseInfo" parameterType="java.lang.String">
+		DELETE FROM
+		sys_declare_baseinfo WHERE
+		base_id = #{base_id}
+	</delete>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO sys_declare_baseinfo (
+		base_id,
+		declare_id,
+		name_zh,
+		birthday,
+		political_status,
+		graduated_school_zh,
+		educational_level_zh,
+		position_cur,
+		flag
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.base_id},
+			#{item.declare_id},
+			#{item.name_zh},
+			#{item.birthday},
+			#{item.political_status},
+			#{item.graduated_school_zh},
+			#{item.educational_level_zh},
+			#{item.position_cur},
+			#{item.flag}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 根据申报编号和基础资料编号 查找基础信息 -->
+	<select id="getBaseInfoByObj" parameterType="com.model.DeclareBaseInfo" resultMap="rm">
+		SELECT
+		<include refid="base_column_List" />
+		FROM sys_declare_baseinfo
+		WHERE
+		declare_id=#{declare_id} and base_id=#{base_id}
+
+	</select>
+	
+	<!-- 查找团队其他成员信息 -->
+	<select id="getTeamOtherMembersById" parameterType="java.lang.String" resultMap="rm">
+		SELECT
+		<include refid="base_column_List" />
+		FROM sys_declare_baseinfo
+		WHERE
+		flag=3 and 
+		declare_id=#{declare_id}
+
+	</select>
+	
+	<!-- 根据申报编号查找基础信息 -->
+	<select id="getBaseInfoById" parameterType="java.lang.String"
+		resultMap="rm">
+		SELECT
+		<include refid="base_column_List" />
+		FROM sys_declare_baseinfo
+		WHERE
+		declare_id=#{declareId}
+	</select>
+</mapper>
+

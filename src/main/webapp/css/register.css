@@ -1,0 +1,152 @@
+@CHARSET "UTF-8";
+*{  
+    margin: 0;  
+	padding: 0;  
+	-moz-box-sizing: border-box;  
+	-webkit-box-sizing: border-box;  
+	box-sizing: border-box;
+}
+
+body{
+	width:100%;
+	height:100%;
+	background-image: url('../images/background.jpg');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: cover;
+}
+
+#main{
+	position:absolute;
+	margin-top:50px;
+	width:100%;
+	/*top:50%;*/
+}
+
+#header{
+	text-align:center;
+	height:120px;
+	width:100%;
+}
+
+#header>span{
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-style: normal;
+	font-size: 60px;
+	color:#ffffff;
+	line-height: 70px;
+}
+
+#registerFrom{
+	width:100%;
+	height:520px;
+	text-align:center;
+	margin: 0 auto;
+}
+
+#registerFrom>#register{
+	width: 450px;
+	height:500px;
+    margin: 0 auto;
+}
+
+#registerFrom>#register>ul{
+	list-style:none;
+	text-align:center;
+	margin: 0 auto;
+	background-color:#ffffff;
+	width:450px;
+	height:500px;
+	border: 2px solid #4EC7FF;
+ 	border-radius: 10px; 
+}
+
+#registerFrom>#register>ul>li{
+	margin:5px 30px 10px 40px;
+	line-height: 40px;
+	text-align: center;
+	height:40px;
+}
+
+.tip{
+	text-align:left !important;
+	color:#ff0000 !important;
+	display:none !important;
+}
+
+#registerFrom>#register>ul>li>span{
+	width:70px;
+	display: inline-block;
+	color:#157FCC;
+	font-size:14px;
+	text-align: right;
+	float:left;
+}
+
+#registerFrom>#register>ul>li:first-child{
+	text-align:center;
+}
+
+#registerFrom>#register>ul>li:first-child>span{
+	color:#157FCC;
+	font-size:30px;
+	text-align: center;
+	width:400px;
+}
+
+#registerFrom>#register>ul>li>input{
+	width:200px;
+	height:30px;
+	text-indent:15px;
+	float:left;
+	margin:5px 10px 0px 10px;
+	border: 1px solid rgba(204, 204, 204, 1);
+ 	border-radius: 5px;
+}
+
+input::-moz-placeholder {
+    text-indent: 24px; /* 没有用 */
+}
+input::-ms-input-placeholder {
+    text-indent: 24px;
+}
+input::-webkit-input-placeholder {
+    text-indent: 24px;
+}
+
+#registerFrom>#register>ul>li:nth-child(4)>input{
+	width:200px;
+	height:30px;
+	border: 1px solid rgba(204, 204, 204, 1);
+ 	border-radius: 5px;
+}
+
+#registerBtn{
+	margin-top:10px !important;
+	margin-left:70px !important;
+	background-color:#157FCC;
+	color:#ffffff;
+	text-indent: 0px !important;
+	font-size:17px;
+	cursor:pointer;
+	width:200px !important;
+	hieght:40px;
+}
+
+#registerFrom>#register>ul>li>img{
+	width:70px;
+	height:28px;
+	cursor:pointer;
+	vertical-align: middle;
+}
+#registerFrom>#register>ul>li>select{
+	width:200px;
+	height:30px;
+	text-indent:15px;
+	float:left;
+	margin:5px 10px 20px 10px;
+	border: 1px solid rgba(204, 204, 204, 1);
+ 	border-radius: 5px;
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.SysDictMapper">
+	<resultMap id="rm" type="com.model.SysDictionary">
+		<result property="id" jdbcType="VARCHAR" column="ID"/>
+		<result property="dictCode" jdbcType="VARCHAR" column="DICT_CODE"/>
+		<result property="dictIndex" jdbcType="INTEGER" column="DICT_INDEX"/>
+		<result property="dictLevel" jdbcType="VARCHAR" column="DICT_LEVEL"/>
+		<result property="dictName" jdbcType="VARCHAR" column="DICT_NAME"/>
+		<result property="parentCode" jdbcType="VARCHAR" column="PARENT_CODE"/>
+		<result property="typeCode" jdbcType="VARCHAR" column="TYPE_CODE"/>
+		<result property="valid" jdbcType="INTEGER" column="VALID"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		DICT_CODE,
+		DICT_INDEX,
+		DICT_LEVEL,
+		DICT_NAME,
+		PARENT_CODE,
+		TYPE_CODE,
+		VALID
+	</sql>
+	
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_dictionary 
+		WHERE 
+			ID = #{id} 
+	</select>
+	
+	<!-- 查询所有的ID -->
+	<select id="findAllIds" resultType="java.lang.String">
+		SELECT ID FROM sys_dictionary
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_dictionary WHERE
+		ID = #{id} 
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_dictionary (
+			ID,
+			DICT_CODE,
+			DICT_INDEX,
+			DICT_LEVEL,
+			DICT_NAME,
+			PARENT_CODE,
+			TYPE_CODE,
+			VALID
+		) VALUES (
+			#{id},
+			#{dictCode},
+			#{dictIndex},
+			#{dictLevel},
+			#{dictName},
+			#{parentCode},
+			#{typeCode},
+			#{valid}
+		)
+	</insert>
+	
+	<select id="countAll" resultType="java.lang.String">
+		SELECT count(ID) FROM sys_dictionary	
+	</select>
+	
+	<select id="findAll" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_dictionary
+	</select>
+	
+	<!-- 更新 -->
+	<update id="updateSelective" parameterType="com.model.SysDictionary">
+		UPDATE sys_dictionary 
+			<set>
+				<if test="dictCode!=null">
+				DICT_CODE = #{dictCode},
+				</if>
+				<if test="dictIndex!=null">
+				DICT_INDEX = #{dictIndex},
+				</if>
+				<if test="dictLevel!=null">
+				DICT_LEVEL = #{dictLevel},
+				</if>
+				<if test="dictName!=null">
+				DICT_NAME = #{dictName},
+				</if>
+				<if test="parentCode!=null">
+				PARENT_CODE = #{parentCode},
+				</if>
+				<if test="typeCode!=null">
+				TYPE_CODE = #{typeCode},
+				</if>
+				<if test="valid!=null">
+				VALID = #{valid}
+				</if>
+			</set>
+		WHERE 
+			ID = #{id}
+	</update>
+	
+	<update id="update" parameterType="com.model.SysDictionary">
+		UPDATE sys_dictionary SET
+			DICT_CODE = #{dictCode},
+			DICT_INDEX = #{dictIndex},
+			DICT_LEVEL = #{dictLevel},
+			DICT_NAME = #{dictName},
+			PARENT_CODE = #{parentCode},
+			TYPE_CODE = #{typeCode},
+			VALID = #{valid}
+		WHERE 
+			ID = #{id} 
+	</update>
+	
+	<select id="findByDictCode" parameterType="java.lang.String"
+		resultMap="rm">
+		select 
+			<include refid="Base_Column_List" />
+		from sys_dictionary where DICT_CODE = #{dictCode} 
+	</select>
+	
+	<select id="findByTypeCode" parameterType="java.lang.String"
+		resultMap="rm">
+		select 
+			<include refid="Base_Column_List" />
+		from sys_dictionary 
+		<if test="typeCode!=null">
+			where TYPE_CODE = #{typeCode}
+		</if>
+		ORDER BY TYPE_CODE,DICT_CODE DESC
+	</select>
+	
+	<select id="findByDictName" parameterType="java.lang.String"
+		resultMap="rm">
+		select 
+			<include refid="Base_Column_List" />
+		from sys_dictionary where DICT_NAME = #{dictName} AND TYPE_CODE=#{typeCode}
+	</select>
+</mapper>
+

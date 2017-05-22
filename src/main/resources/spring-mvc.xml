@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/" p:suffix=".jsp" />
+	
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.controller" />
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean id="utf8StringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				
+				<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+			        <!-- 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable representation -->
+			        <property name="supportedMediaTypes">
+			            <list>
+			                <value>text/html;charset=UTF-8</value>
+			            </list>
+			        </property>
+    			</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+	<!-- FreeMarker配置 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>  
+        <property name="contentType" value="text/html; charset=utf-8"/>  
+        <property name="cache" value="true" />  
+        <property name="suffix" value=".ftl" />  
+        <property name="order" value="0"/><!-- 配置视图解析的顺序 -->
+    </bean>
+    <bean id="freeMarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- 模板的根目录 -->
+        <property name="templateLoaderPath" value="/resources/templates/"/><!-- freemark模板存放的位置 -->
+        <!-- 编码格式  -->
+        <property name="defaultEncoding" value="utf-8"/><!-- freemark编码格式 -->
+        <property name="freemarkerSettings">  
+            <props>  
+                <prop key="template_update_delay">1</prop><!--刷新模板的周期，单位为秒 --> 
+            </props>  
+        </property> 
+    </bean> 
+	<!-- <mvc:resources mapping="/css/**" location="/css/" cache-period="31536000"/>
+	<mvc:resources mapping="/images/**" location="/images/" cache-period="31536000"/>
+	<mvc:resources mapping="/styles/**" location="/styles/" cache-period="31536000"/>
+	<mvc:resources mapping="/content/**" location="/content/" cache-period="31536000"/> -->
+	
+	<!-- 拦截器 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+		    <mvc:mapping path="/**"/>
+			<bean class="com.interceptors.SessionInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+		    <mvc:mapping path="/**"/>
+			<bean class="com.interceptors.EncodingInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+</beans>

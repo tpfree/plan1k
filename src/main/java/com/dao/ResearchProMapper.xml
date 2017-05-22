@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.ResearchProMapper">
+	<resultMap id="rm" type="com.model.ResearchProject">
+		<result property="proId" jdbcType="VARCHAR" column="PRO_ID"/>
+		<result property="proName" jdbcType="VARCHAR" column="PRO_NAME"/>
+		<result property="proSource" jdbcType="VARCHAR" column="PRO_SOURCE"/>
+		<result property="startDate" jdbcType="TIMESTAMP" column="START_TIME"/>
+		<result property="endDate" jdbcType="TIMESTAMP" column="END_TIME"/>
+		<result property="totalAmonut" jdbcType="DOUBLE" column="TOTAL_AMOUNT"/>
+		<result property="peopleNumber" jdbcType="INTEGER" column="PEOPLE_NUMBER"/>
+		<result property="specificPosition" jdbcType="VARCHAR" column="SPECIFIC_POSITION"/>	
+		<result property="specificTask" jdbcType="VARCHAR" column="SPECIFIC_TASK"/>
+		<result property="proProgress" jdbcType="VARCHAR" column="PROJECT_PROGRESS"/>
+		<result property="proNature" jdbcType="VARCHAR" column="PRO_NATURE"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+		<result property="baseId" jdbcType="VARCHAR" column="BASE_ID"/>
+		<result property="type" jdbcType="INTEGER" column="TYPE"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		PRO_ID,
+		PRO_NAME,
+		PRO_SOURCE,
+		START_TIME,
+		END_TIME,
+		TOTAL_AMOUNT,
+		PEOPLE_NUMBER,
+		SPECIFIC_POSITION,
+		SPECIFIC_TASK,
+		PROJECT_PROGRESS,
+		PRO_NATURE,
+		DECLARE_ID,
+		BASE_ID,
+		TYPE
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_research_pro 
+		WHERE 
+			PRO_ID=#{proId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_research_pro WHERE
+		PRO_ID=#{proId}
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_research_pro (
+			PRO_ID,
+			PRO_NAME,
+			PRO_SOURCE,
+			START_TIME,
+			END_TIME,
+			TOTAL_AMOUNT,
+			PEOPLE_NUMBER,
+			SPECIFIC_POSITION,
+			SPECIFIC_TASK,
+			PROJECT_PROGRESS,
+			PRO_NATURE,
+			DECLARE_ID,
+			BASE_ID,
+			TYPE
+		) VALUES (
+			#{proId},
+			#{proName},
+			#{proSource},
+			#{startDate},
+			#{endDate},
+			#{totalAmonut},
+			#{peopleNumber},
+			#{specificPosition},
+			#{specificTask},
+			#{proProgress},
+			#{proNature},
+			#{declareId},
+			#{baseId},
+			#{type}
+		)
+	</insert>
+	<!-- 根据申报编号和项目类型查询信息 -->
+	<select id="findAllById"  parameterType="java.util.Map" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_research_pro
+		WHERE 
+			DECLARE_ID=#{declareId} and type=#{type}
+	</select>
+	
+	<!-- 更新 -->
+			
+	<update id="update" parameterType="com.model.ResearchProject">
+		UPDATE sys_research_pro SET
+			PRO_NAME=#{proName},
+			PRO_SOURCE=#{proSource},
+			START_TIME=#{startDate},
+			END_TIME=#{endDate},
+			TOTAL_AMOUNT=#{totalAmonut},
+			PEOPLE_NUMBER=#{peopleNumber},
+			SPECIFIC_POSITION=#{specificPosition},
+			SPECIFIC_TASK=#{specificTask},
+			PROJECT_PROGRESS=#{proProgress},
+			PRO_NATURE=#{proNature}
+		WHERE 
+			PRO_ID=#{proId} and type=#{type}
+	</update>
+	<!-- 根据申报编号查询项目信息 -->
+	<select id="findAllInfosById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_research_pro
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+</mapper>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.HonorTitleMapper">
+	<resultMap id="rm" type="com.model.HonorTitle">
+		<result property="honorId" jdbcType="VARCHAR" column="HONOR_ID"/>
+		<result property="honorName" jdbcType="VARCHAR" column="HONOR_NAME"/>
+		<result property="honorDate" jdbcType="TIMESTAMP" column="HONOR_DATE"/>
+		<result property="department" jdbcType="VARCHAR" column="DEPARTMENT"/>
+		<result property="certificate" jdbcType="VARCHAR" column="CERTIFICATE"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+		<result property="honorlevel" jdbcType="INTEGER" column="HONOR_LEVEL"/>
+		<result property="baseId" jdbcType="VARCHAR" column="BASE_ID"/>
+		
+	</resultMap>
+	<sql id="Base_Column_List">
+		HONOR_ID,
+		HONOR_NAME,
+		HONOR_DATE,
+		DEPARTMENT,
+		CERTIFICATE,
+		DECLARE_ID,
+		HONOR_LEVEL,
+		BASE_ID
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_honorary_title 
+		WHERE 
+			HONOR_ID=#{honorId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_honorary_title WHERE
+		HONOR_ID=#{honorId}
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_honorary_title (
+			HONOR_ID,
+			HONOR_NAME,
+			HONOR_DATE,
+			DEPARTMENT,
+			CERTIFICATE,
+			DECLARE_ID,
+			HONOR_LEVEL,
+			BASE_ID
+		) VALUES (
+			#{honorId},
+			#{honorName},
+			#{honorDate},
+			#{department},
+			#{certificate},
+			#{declareId},
+			#{honorlevel},
+			#{baseId}
+		)
+	</insert>
+
+	<select id="findAllById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_honorary_title
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.model.HonorTitle">
+		UPDATE sys_honorary_title SET
+			HONOR_NAME=#{honorName},
+			HONOR_DATE=#{honorDate},
+			DEPARTMENT=#{department},
+			CERTIFICATE=#{certificate},
+			HONOR_LEVEL=#{honorlevel}
+		WHERE 
+			HONOR_ID=#{honorId}
+	</update>
+	
+</mapper>
+

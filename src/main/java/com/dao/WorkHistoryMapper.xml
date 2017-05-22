@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.WorkHistoryMapper">
+	<resultMap id="rm" type="com.model.WorkHistory">
+		<result property="historyId" jdbcType="VARCHAR" column="WORK_HISTORY_ID"/>
+		<result property="startDate" jdbcType="TIMESTAMP" column="START_TIME"/>
+		<result property="endDate" jdbcType="TIMESTAMP" column="END_TIME"/>
+		<result property="workUnit" jdbcType="VARCHAR" column="WORK_UNIT"/>
+		<result property="position" jdbcType="VARCHAR" column="POSITION"/>
+		<result property="country" jdbcType="VARCHAR" column="COUNTRY"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+		<result property="baseId" jdbcType="VARCHAR" column="BASE_ID"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		WORK_HISTORY_ID,
+		START_TIME,
+		END_TIME,
+		WORK_UNIT,
+		POSITION,
+		COUNTRY,
+		DECLARE_ID,
+		BASE_ID
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_work_history 
+		WHERE 
+			WORK_HISTORY_ID=#{historyId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_work_history WHERE
+		WORK_HISTORY_ID = #{historyId} 
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_work_history (
+			WORK_HISTORY_ID,
+			START_TIME,
+			END_TIME,
+			WORK_UNIT,
+			POSITION,
+			COUNTRY,
+			DECLARE_ID,
+			BASE_ID
+		) VALUES (
+			#{historyId},
+			#{startDate},
+			#{endDate},
+			#{workUnit},
+			#{position},
+			#{country},
+			#{declareId},
+			#{baseId}
+		)
+	</insert>
+
+	<select id="findAllById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_work_history
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.model.WorkHistory">
+		UPDATE sys_work_history SET
+				START_TIME = #{startDate},
+				END_TIME = #{endDate},
+				COUNTRY = #{country},
+				WORK_UNIT = #{workUnit},
+				POSITION = #{position}
+		WHERE 
+			WORK_HISTORY_ID = #{historyId}
+	</update>
+	
+</mapper>
+

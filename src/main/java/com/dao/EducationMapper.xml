@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.EducationMapper">
+	<resultMap id="rm" type="com.model.EducationInfo">
+		<result property="eduId" jdbcType="VARCHAR" column="eduId"/>
+		<result property="declareId" jdbcType="VARCHAR" column="declareId"/>
+		<result property="startDate" jdbcType="TIMESTAMP" column="startDate"/>
+		<result property="endDate" jdbcType="TIMESTAMP" column="endDate"/>
+		<result property="country" jdbcType="VARCHAR" column="country"/>
+		<result property="school" jdbcType="VARCHAR" column="school"/>
+		<result property="profession" jdbcType="VARCHAR" column="profession"/>
+		<result property="degree" jdbcType="VARCHAR" column="degree"/>
+		<result property="baseId" jdbcType="VARCHAR" column="baseId"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		eduId,
+		declareId,
+		startDate,
+		endDate,
+		country,
+		school,
+		profession,
+		degree,
+		baseId
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_declare_eduinfo 
+		WHERE 
+			eduId=#{eduId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_declare_eduinfo WHERE
+		eduId = #{eduId} 
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_declare_eduinfo (
+			eduId,
+			declareId,
+			startDate,
+			endDate,
+			country,
+			school,
+			profession,
+			degree,
+			baseId
+		) VALUES (
+			#{eduId},
+			#{declareId},
+			#{startDate},
+			#{endDate},
+			#{country},
+			#{school},
+			#{profession},
+			#{degree},
+			#{baseId}
+		)
+	</insert>
+
+	<select id="findAllEductionById" parameterType="java.lang.String"  resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_declare_eduinfo
+		WHERE 
+			declareId=#{declareId}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.model.EducationInfo">
+		UPDATE sys_declare_eduinfo SET
+				startDate = #{startDate},
+				endDate = #{endDate},
+				country = #{country},
+				school = #{school},
+				profession = #{profession},
+				degree = #{degree}
+		WHERE 
+			eduId = #{eduId}
+	</update>
+	
+</mapper>
+

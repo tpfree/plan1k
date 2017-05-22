@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.RelyingOrgMapper">
+	<resultMap id="rm" type="com.model.RelyingOrg">
+		<result property="orgId" jdbcType="VARCHAR" column="ORG_ID"/>
+		<result property="orgName" jdbcType="VARCHAR" column="ORG_NAME"/>
+		<result property="orgType" jdbcType="VARCHAR" column="ORG_TYPE"/>
+		<result property="ratifyDepartment" jdbcType="VARCHAR" column="RATIFY_DEPARTMENT"/>
+		<result property="ratifyDate" jdbcType="TIMESTAMP" column="RATIFY_DATE"/>
+		<result property="amountSubsidy" jdbcType="VARCHAR" column="AMOUNT_SUBSIDY"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ORG_ID,
+		ORG_NAME,
+		ORG_TYPE,
+		RATIFY_DEPARTMENT,
+		RATIFY_DATE,
+		AMOUNT_SUBSIDY,
+		DECLARE_ID
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_relying_org 
+		WHERE 
+			ORG_ID=#{orgId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_relying_org WHERE
+		ORG_ID=#{orgId}
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_relying_org (
+			ORG_ID,
+			ORG_NAME,
+			ORG_TYPE,
+			RATIFY_DEPARTMENT,
+			RATIFY_DATE,
+			AMOUNT_SUBSIDY,
+			DECLARE_ID
+		) VALUES (
+			#{orgId},
+			#{orgName},
+			#{orgType},
+			#{ratifyDepartment},
+			#{ratifyDate},
+			#{amountSubsidy},
+			#{declareId}
+		)
+	</insert>
+
+	<select id="findAllById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_relying_org
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+	
+	<!-- 更新 -->
+			
+			
+			
+			
+	<update id="update" parameterType="com.model.RelyingOrg">
+		UPDATE sys_relying_org SET
+			ORG_NAME=#{orgName},
+			ORG_TYPE=#{orgType},
+			RATIFY_DEPARTMENT=#{ratifyDepartment},
+			RATIFY_DATE=#{ratifyDate},
+			AMOUNT_SUBSIDY=#{amountSubsidy}
+		WHERE 
+			ORG_ID=#{orgId}
+	</update>
+	
+</mapper>
+

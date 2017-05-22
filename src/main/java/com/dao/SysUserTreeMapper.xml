@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- private String id;// 主键
+	private String treeName;
+	private String treeId;
+	private Integer index;
+	private String unitCode;
+	private String treeUrl;
+	private Integer treeLevel;
+	private Integer parentTreeId; -->
+<mapper namespace="com.dao.SysUserTreeMapper">
+	<resultMap id="rm" type="com.model.SysUserTree">
+		<result property="id" jdbcType="VARCHAR" column="ID"/>
+		<result property="treeName" jdbcType="CHAR" column="TREE_NAME"/>
+		<result property="treeUrl" jdbcType="VARCHAR" column="TREE_URL"/>
+		<result property="treeCode" jdbcType="VARCHAR" column="TREE_CODE"/>
+		<result property="index" jdbcType="INTEGER" column="INDEX"/>
+		<result property="parentCode" jdbcType="VARCHAR" column="PARENT_CODE"/>
+		<result property="treeLevel" jdbcType="INTEGER" column="TREE_LEVEL"/>
+		<result property="level" jdbcType="INTEGER" column="LEVEL"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		TREE_NAME,
+		TREE_URL,
+		TREE_CODE,
+		INDEX,
+		PARENT_CODE,
+		TREE_LEVEL,
+		LEVEL
+	</sql>
+	
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			A.ID,
+			B.TREE_NAME,
+			B.TREE_URL,
+			B.TREE_CODE,
+			A.INDEX,
+			B.PARENT_CODE,
+			B.TREE_LEVEL,
+			A.LEVEL
+		FROM sys_user_tree A
+		LEFT JOIN sys_nav_tree B ON A.TREE_ID=B.TREE_ID
+		WHERE 
+			A.ID = #{id} 
+	</select>
+	
+	<!-- 查询所有的ID -->
+	<select id="findAllIds" resultType="java.lang.String">
+		SELECT ID FROM sys_user_tree
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_user_tree WHERE
+		ID = #{id} 
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_user_tree (
+			ID,
+			TREE_ID,
+			INDEX,
+			LEVEL
+		) VALUES (
+			#{id},
+			#{treeId},
+			#{index},
+			#{level}
+		)
+	</insert>
+	
+	<select id="countAll" resultType="java.lang.String">
+		SELECT count(ID) FROM sys_user_tree	
+	</select>
+	
+	<select id="findAll" resultMap="rm">
+		SELECT 
+			A.ID,
+			B.TREE_NAME,
+			B.TREE_URL,
+			B.TREE_CODE,
+			A.INDEX,
+			B.PARENT_CODE,
+			B.TREE_LEVEL,
+			A.LEVEL
+		FROM sys_user_tree A
+		LEFT JOIN sys_nav_tree B ON A.TREE_ID=B.TREE_ID
+	</select>
+	
+	<!-- 更新 -->
+	<update id="updateSelective" parameterType="com.model.SysUserTree">
+		UPDATE sys_user_tree 
+			<set>
+				<if test="index!=null">
+				INDEX = #{index},
+				</if>
+				<if test="level!=null">
+				LEVEL = #{level}
+				</if>
+			</set>
+		WHERE 
+			ID = #{id}
+	</update>
+	
+	<update id="update" parameterType="com.model.SysUserTree">
+		UPDATE sys_user_tree SET
+			INDEX = #{index},
+			LEVEL = #{level}
+		WHERE 
+			ID = #{id} 
+	</update>
+	
+	
+	<select id="findByLevel" parameterType="java.lang.Integer"
+		resultMap="rm">
+		SELECT 
+			A.ID,
+			B.TREE_NAME,
+			B.TREE_URL,
+			B.TREE_CODE,
+			A.INDEX,
+			B.PARENT_CODE,
+			B.TREE_LEVEL,
+			A.LEVEL
+		FROM sys_user_tree A
+		INNER JOIN sys_nav_tree B ON A.TREE_ID=B.ID
+		where A.LEVEL = #{level} ORDER BY B.PARENT_CODE,B.TREE_LEVEL,B.TREE_INDEX
+	</select>
+</mapper>
+

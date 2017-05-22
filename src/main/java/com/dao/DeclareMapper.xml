@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.DeclareMapper">
+	<resultMap id="rm" type="com.model.DeclareInfo">
+		<result property="declareId" jdbcType="VARCHAR" column="declareId"/>
+		<result property="applicant" jdbcType="VARCHAR" column="applicant"/>
+		<result property="declareType" jdbcType="INTEGER" column="declareType"/>
+		<result property="declareUnit" jdbcType="VARCHAR" column="declareUnit"/>
+		<result property="declareFields" jdbcType="INTEGER" column="declareFields"/>
+		<result property="appPhone" jdbcType="VARCHAR" column="appPhone"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="name_en" jdbcType="VARCHAR" column="name_en"/>
+		<result property="declare_date" jdbcType="TIMESTAMP" column="declare_date"/>
+		<result property="ifvalid" jdbcType="INTEGER" column="ifvalid"/>
+		<result property="personType" jdbcType="INTEGER" column="personType"/>
+		<result property="contactPerson" jdbcType="VARCHAR" column="contactPerson"/>
+		<result property="contactPhone" jdbcType="VARCHAR" column="contactPhone"/>
+		<result property="userName" jdbcType="VARCHAR" column="userName"/>
+		
+		<result property="updateUser" jdbcType="VARCHAR" column="updateUser"/>
+		<result property="updateDate" jdbcType="VARCHAR" column="updateDate"/>
+		<result property="auditUser" jdbcType="VARCHAR" column="auditUser"/>
+		<result property="auditDate" jdbcType="VARCHAR" column="auditDate"/>
+		<result property="auditStatus" jdbcType="VARCHAR" column="auditStatus"/>
+		<result property="flag" jdbcType="VARCHAR" column="flag"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		declareId,
+		applicant,
+		declareType,
+		declareUnit,
+		declareFields,
+		appPhone,
+		email,
+		name_en,
+		declare_date,
+		ifvalid,
+		personType,
+		contactPerson,
+		contactPhone,
+		userName,
+		updateUser,
+		updateDate,
+		auditUser,
+		auditDate,
+		auditStatus,
+		flag
+	</sql>
+
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_declare (
+			declareId,
+			applicant,
+			declareType,
+			declareUnit,
+			declareFields,
+			appPhone,
+			email,
+			name_en,
+			declare_date,
+			ifvalid,
+			personType,
+			contactPerson,
+			contactPhone,
+			userName,
+			flag
+		) VALUES (
+			#{declareId},
+			#{applicant},
+			#{declareType},
+			#{declareUnit},
+			#{declareFields},
+			#{appPhone},
+			#{email},
+			#{name_en},
+			#{declare_date},
+			#{ifvalid},
+			#{personType},
+			#{contactPerson},
+			#{contactPhone},
+			#{userName},
+			#{flag}
+		)
+	</insert>
+	<!-- 根据申报id 查找申报资料 -->
+	<select id="findDeclareInfos"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_declare
+		WHERE 
+			declareId=#{declareId}
+	</select>
+	<!-- 根据登陆账号查询所有申报资料 -->
+	<select id="findAllDeclareInfos"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_declare
+		WHERE 
+			userName=#{userName}
+	</select>
+	<!-- 根据申报id更新申报资料状态 -->
+	<update id="updateIfValid"  parameterType="java.lang.String" >
+		UPDATE sys_declare SET
+			ifvalid=1
+		WHERE
+			declareId=#{declareId}
+	</update>
+	<!-- 根据申报id单个删除申报资料 -->
+	<delete id="deleteDeclareInfoById" parameterType="java.lang.String" >
+		 delete from sys_declare 
+		 where
+		   declareId = #{declareId}  
+	     
+	</delete>
+	<!-- 根据申报ids批量删除申报资料 -->
+	<delete id="deleteDeclareInfoByIds" parameterType="java.lang.String" >
+		 delete from sys_declare where declareId in  
+	     <foreach collection="array" item="declareId" open="(" separator="," close=")">  
+	         #{declareId}  
+	     </foreach>  
+	</delete>
+	
+</mapper>
+

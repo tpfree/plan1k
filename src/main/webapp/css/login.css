@@ -1,0 +1,169 @@
+@CHARSET "UTF-8";
+*{  
+    margin: 0;  
+	padding: 0;  
+	-moz-box-sizing: border-box;  
+	-webkit-box-sizing: border-box;  
+	box-sizing: border-box;
+}
+
+body{
+	width:100%;
+	height:100%;
+	background-image: url('../images/background.jpg');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: cover;
+}
+
+
+#main{
+	position:absolute;
+	margin-top:-400px;
+	width:100%;
+	top:60%;
+}
+
+#header{
+	text-align:center;
+	height:120px;
+	width:100%;
+	/* background-color:#ffffff; */
+}
+
+#header>span{
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-style: normal;
+	font-size: 60px;
+	color:#ffffff;
+	line-height: 70px;
+}
+
+#loginFrom{
+	width:100%;
+	height:560px;
+	/* background-image: url('../images/bg.jpg');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: cover; */
+}
+
+#login{
+	height: 560px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+#login>img{
+	float: left;
+	width:450px;
+}
+
+#login>ul{
+	list-style:none;
+	float:right; 
+	text-align:center;
+	margin: 0 auto;
+	/* margin-top:80px;
+	margin-right:150px; */
+	background-color:#ffffff;
+	width:450px;
+	height:381.5px;
+	/* border: 2px solid #4EC7FF;
+ 	border-radius: 10px; */
+}
+
+
+#loginFrom>#login>ul>li{
+	margin:20px 40px 20px 40px;
+	line-height: 60px;
+	text-align: center;
+	height:40px;
+}
+
+#loginFrom>#login>ul>li>span{
+	width:70px;
+	display: inline-block;
+	color:#157FCC;
+	font-size:14px;
+	text-align: right;
+	float:left;
+}
+
+#loginFrom>#login>ul>li:first-child{
+	text-align:center;
+}
+
+#loginFrom>#login>ul>li:first-child>span{
+	color:#157FCC;
+	font-size:30px;
+	text-align: center;
+	width:336px;
+}
+
+#loginFrom>#login>ul>li>input{
+	width:250px;
+	height:40px;
+	text-indent:15px;
+	border: 1px solid rgba(204, 204, 204, 1);
+ 	border-radius: 5px;
+}
+
+input::-moz-placeholder {
+    text-indent: 24px; /* 没有用 */
+}
+input::-ms-input-placeholder {
+    text-indent: 24px;
+}
+input::-webkit-input-placeholder {
+    text-indent: 24px;
+}
+
+/* #loginFrom>#login>ul>li:nth-child(5){
+	display:none
+} */
+
+#loginFrom>#login>ul>li:nth-child(4)>input{
+	width:180px;
+	height:40px;
+	border: 1px solid rgba(204, 204, 204, 1);
+ 	border-radius: 5px;
+}
+/*统计元素  */
+input#loginBtn {
+	margin-top:10px;
+	background-color:#157FCC;
+	color:#ffffff;
+	font-size:17px;
+	float:left;
+	text-align:center;
+	cursor:pointer;
+	height:35px;
+	margin:10px;
+	width:148px;
+}
+
+input#registerBtn{
+	margin-top:10px;
+	background-color:#157FCC;
+	color:#ffffff;
+	font-size:17px;
+	float:left;
+	text-align:center;
+	cursor:pointer;
+	height:35px;
+	margin:10px;
+	width:148px;
+}
+
+#loginFrom>#login>ul>li>img{
+	width:70px;
+	height:28px;
+	cursor:pointer;
+	vertical-align: middle;
+}
+
+

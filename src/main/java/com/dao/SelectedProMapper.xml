@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.dao.SelectedProMapper">
+	<resultMap id="rm" type="com.model.SelectedProject">
+		<result property="proId" jdbcType="VARCHAR" column="PROJECT_ID"/>
+		<result property="proName" jdbcType="VARCHAR" column="PROJECT_NAME"/>
+		<result property="selectedTime" jdbcType="TIMESTAMP" column="SELECTED_TIME"/>
+		<result property="memo" jdbcType="VARCHAR" column="MEMO"/>
+		<result property="proLevel" jdbcType="INTEGER" column="PROJECT_LEVEL"/>
+		<result property="declareId" jdbcType="VARCHAR" column="DECLARE_ID"/>
+		<result property="baseId" jdbcType="VARCHAR" column="BASE_ID"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		PROJECT_ID,
+		PROJECT_NAME,
+		SELECTED_TIME,
+		MEMO,
+		PROJECT_LEVEL,
+		DECLARE_ID,
+		BASE_ID
+	</sql>
+
+	<select id="load" parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_selected_pro 
+		WHERE 
+			PROJECT_ID=#{proId}
+	</select>
+
+	<!-- 按Id删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM sys_selected_pro WHERE
+		PROJECT_ID=#{proId}
+	</delete>
+	 <!-- 插入 -->
+	<insert id="insert">
+		INSERT INTO sys_selected_pro (
+			PROJECT_ID,
+			PROJECT_NAME,
+			SELECTED_TIME,
+			MEMO,
+			PROJECT_LEVEL,
+			DECLARE_ID,
+			BASE_ID
+		) VALUES (
+			#{proId},
+			#{proName},
+			#{selectedTime},
+			#{memo},
+			#{proLevel},
+			#{declareId},
+			#{baseId}
+		)
+	</insert>
+
+	<select id="findAllById"  parameterType="java.lang.String" resultMap="rm">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_selected_pro
+		WHERE 
+			DECLARE_ID=#{declareId}
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.model.SelectedProject">
+		UPDATE sys_selected_pro SET
+			PROJECT_NAME=#{proName},
+			SELECTED_TIME=#{selectedTime},
+			MEMO=#{memo},
+			PROJECT_LEVEL=#{proLevel}
+		WHERE 
+			PROJECT_ID=#{proId}
+	</update>
+	
+</mapper>
+
